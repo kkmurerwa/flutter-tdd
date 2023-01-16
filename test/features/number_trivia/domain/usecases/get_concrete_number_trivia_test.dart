@@ -5,12 +5,9 @@ import 'package:flutter_tdd/features/number_trivia/domain/usecases/get_concrete_
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'get_concrete_number_trivia_test.mocks.dart';
 
-class MockNumberTriviaRepository extends Mock implements NumberTriviaRepository {}
-
-@GenerateMocks([MockNumberTriviaRepository])
-// @GenerateNiceMocks([MockSpec<MockNumberTriviaRepository>()])
-// @GenerateNiceMocks([MockSpec<MockNumberTriviaRepository>(as: #MockNumberTriviaRepository)])
+@GenerateNiceMocks([MockSpec<NumberTriviaRepository>()])
 void main() {
   late MockNumberTriviaRepository mockNumberTriviaRepository;
   late GetConcreteNumberTrivia usecase;
@@ -26,8 +23,8 @@ void main() {
   test(
     'should get trivia for the number from the repository',
     () async {
-      when(mockNumberTriviaRepository.getConcreteNumberTrivia(tNumber))
-        .thenAnswer((_) async => Right(tNumberTrivia));
+      when(mockNumberTriviaRepository.getConcreteNumberTrivia(any))
+        .thenAnswer((_) async => const Right(tNumberTrivia));
 
       final result = await usecase.execute(number: tNumber);
       
