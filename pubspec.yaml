@@ -26,7 +26,6 @@ dependencies:
   # Local cache
   shared_preferences: ^2.0.16
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
