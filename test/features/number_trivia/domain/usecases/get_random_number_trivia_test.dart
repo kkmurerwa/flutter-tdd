@@ -7,7 +7,7 @@ import 'package:flutter_tdd/features/number_trivia/domain/usecases/get_random_nu
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'get_concrete_number_trivia_test.mocks.dart';
+import 'get_random_number_trivia_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<NumberTriviaRepository>()])
 void main() {
