@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter_tdd/core/network/network_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -8,9 +6,7 @@ import 'package:mockito/mockito.dart';
 
 import 'network_info_test.mocks.dart';
 
-@GenerateNiceMocks([
-  MockSpec<InternetConnectionChecker>()
-])
+@GenerateNiceMocks([MockSpec<InternetConnectionChecker>()])
 void main() {
   late MockInternetConnectionChecker mockInternetConnectionChecker;
   late NetworkInfoImpl networkInfo;
@@ -23,7 +19,7 @@ void main() {
   group('isConnected', () {
     test('should forward the call to InternetConnectionChecker.hasConnection', () async {
       final tHasConnectionFuture = Future.value(true);
-      
+
       when(mockInternetConnectionChecker.hasConnection)
           .thenAnswer((_) => tHasConnectionFuture);
 
@@ -33,5 +29,4 @@ void main() {
       expect(result, equals(tHasConnectionFuture));
     });
   });
-
 }
