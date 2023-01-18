@@ -14,7 +14,7 @@ part 'number_trivia_state.dart';
 
 const String SERVER_FAILURE_MESSAGE = 'Server Failure';
 const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
-const String INVALID_INPUT_FAILURE_MESSAGE = 'Invalid Input - Number must be 0 or greater';
+const String INVALID_INPUT_FAILURE_MESSAGE = 'Invalid Input - Please enter a valid number';
 
 class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
   final GetConcreteNumberTrivia getConcreteNumberTrivia;
@@ -27,38 +27,38 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
     required this.inputConverter
   }) : getConcreteNumberTrivia = concrete,
         getRandomNumberTrivia = random,
-        super(Empty()) {
+        super(EmptyState()) {
           on<NumberTriviaEvent> (numberTriviaEventObserver);
         }
 
-  FutureOr<void> numberTriviaEventObserver(event, emit) async* {
+  FutureOr<void> numberTriviaEventObserver(event, emit) async {
     if (event is GetTriviaForConcreteNumber) {
       final inputEither = inputConverter.stringToUnsignedInteger(event.numberString);
 
-      yield* inputEither.fold(
-        (failure) async* {
-          yield const Error(message: INVALID_INPUT_FAILURE_MESSAGE);
-        },
-        (integer) async* {
-          yield Loading();
+      await inputEither.fold(
+        (failure) => emit(const ErrorState(message: INVALID_INPUT_FAILURE_MESSAGE)),
+        (integer) async {
+          emit(LoadingState());
+
           final failureOrTrivia = await getConcreteNumberTrivia(Params(number: integer));
 
-          _eitherSuccessorErrorState(failureOrTrivia);
+          _eitherSuccessorErrorState(emit, failureOrTrivia);
         }
       );
     } else if (event is GetTriviaForRandomNumber) {
-      yield Loading();
+      emit(LoadingState());
+
       final failureOrTrivia = await getRandomNumberTrivia(NoParams());
 
-      yield* _eitherSuccessorErrorState(failureOrTrivia);
+      _eitherSuccessorErrorState(emit, failureOrTrivia);
     }
   }
 
-  Stream<NumberTriviaState> _eitherSuccessorErrorState(Either<Failure, NumberTrivia> failureOrTrivia) async* {
-    yield failureOrTrivia.fold(
-        (failure) => Error(message: mapFailureToMessage(failure)),
-        (trivia) => Success(trivia: trivia)
-    );
+  void _eitherSuccessorErrorState(emit, Either<Failure, NumberTrivia> failureOrTrivia) {
+    emit(failureOrTrivia.fold(
+      (failure) => ErrorState(message: mapFailureToMessage(failure)),
+      (trivia) => SuccessState(trivia: trivia)
+    ));
   }
 
   String mapFailureToMessage(Failure failure) {

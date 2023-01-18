@@ -8,7 +8,7 @@ import 'package:flutter_tdd/features/number_trivia/data/models/number_trivia_mod
 import 'package:flutter_tdd/features/number_trivia/domain/entities/number_trivia.dart';
 import 'package:flutter_tdd/features/number_trivia/domain/repositories/number_trivia_repository.dart';
 
-typedef Future<NumberTrivia> _ConcreteOrRandomChooser();
+typedef _ConcreteOrRandomChooser = Future<NumberTrivia> Function();
 
 class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   final NumberTriviaRemoteDataSource remoteDataSource;
@@ -42,7 +42,7 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
       try {
         final remoteTrivia = await getConcreteOrRandom();
 
-        localDataSource.cacheNumberTrivia(remoteTrivia as NumberTriviaModel);
+        await localDataSource.cacheNumberTrivia(remoteTrivia as NumberTriviaModel);
 
         return Right(remoteTrivia);
       } on ServerException {

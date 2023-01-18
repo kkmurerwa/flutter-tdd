@@ -4,29 +4,29 @@ abstract class NumberTriviaState extends Equatable {
   const NumberTriviaState();
 }
 
-class Empty extends NumberTriviaState {
+class EmptyState extends NumberTriviaState {
   @override
   List<Object> get props => [];
 }
 
-class Loading extends NumberTriviaState {
+class LoadingState extends NumberTriviaState {
   @override
   List<Object> get props => [];
 }
 
-class Success extends NumberTriviaState {
+class SuccessState extends NumberTriviaState {
   final NumberTrivia trivia;
 
-  const Success({required this.trivia});
+  const SuccessState({required this.trivia});
 
   @override
   List<Object> get props => [trivia];
 }
 
-class Error extends NumberTriviaState {
+class ErrorState extends NumberTriviaState {
   final String message;
 
-  const Error({required this.message});
+  const ErrorState({required this.message});
 
   @override
   List<Object> get props => [message];

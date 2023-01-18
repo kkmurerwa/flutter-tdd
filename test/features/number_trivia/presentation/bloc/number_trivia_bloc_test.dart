@@ -36,7 +36,7 @@ void main() {
   });
   
   test('initial state should be empty', () {
-    expect(bloc.state, equals(Empty()));
+    expect(bloc.state, equals(EmptyState()));
   });
 
   group('getTriviaForConcreteNumber', () {
@@ -63,8 +63,8 @@ void main() {
           .thenReturn(Left(InvalidInputFailure()));
 
       final expected = [
-        Empty(),
-        const Error(message: INVALID_INPUT_FAILURE_MESSAGE)
+        EmptyState(),
+        const ErrorState(message: INVALID_INPUT_FAILURE_MESSAGE)
       ];
       expectLater(bloc.stream.asBroadcastStream(), emitsInOrder(expected));
 
@@ -89,9 +89,9 @@ void main() {
           .thenAnswer((_) async => const Right(tNumberTrivia));
 
       final expected = [
-        Empty(),
-        Loading(),
-        const Success(trivia: tNumberTrivia)
+        EmptyState(),
+        LoadingState(),
+        const SuccessState(trivia: tNumberTrivia)
       ];
       expectLater(bloc.stream.asBroadcastStream(), emitsInOrder(expected));
 
@@ -105,9 +105,9 @@ void main() {
           .thenAnswer((_) async => const Left(ServerFailure("")));
 
       final expected = [
-        Empty(),
-        Loading(),
-        const Error(message: SERVER_FAILURE_MESSAGE)
+        EmptyState(),
+        LoadingState(),
+        const ErrorState(message: SERVER_FAILURE_MESSAGE)
       ];
       expectLater(bloc.stream.asBroadcastStream(), emitsInOrder(expected));
 
@@ -121,9 +121,9 @@ void main() {
           .thenAnswer((_) async => const Left(CacheFailure("")));
 
       final expected = [
-        Empty(),
-        Loading(),
-        const Error(message: CACHE_FAILURE_MESSAGE)
+        EmptyState(),
+        LoadingState(),
+        const ErrorState(message: CACHE_FAILURE_MESSAGE)
       ];
       expectLater(bloc.stream.asBroadcastStream(), emitsInOrder(expected));
 
@@ -149,9 +149,9 @@ void main() {
           .thenAnswer((_) async => const Right(tNumberTrivia));
 
       final expected = [
-        Empty(),
-        Loading(),
-        const Success(trivia: tNumberTrivia)
+        EmptyState(),
+        LoadingState(),
+        const SuccessState(trivia: tNumberTrivia)
       ];
       expectLater(bloc.stream.asBroadcastStream(), emitsInOrder(expected));
 
@@ -163,9 +163,9 @@ void main() {
           .thenAnswer((_) async => const Left(ServerFailure("")));
 
       final expected = [
-        Empty(),
-        Loading(),
-        const Error(message: SERVER_FAILURE_MESSAGE)
+        EmptyState(),
+        LoadingState(),
+        const ErrorState(message: SERVER_FAILURE_MESSAGE)
       ];
       expectLater(bloc.stream.asBroadcastStream(), emitsInOrder(expected));
 
@@ -177,9 +177,9 @@ void main() {
           .thenAnswer((_) async => const Left(CacheFailure("")));
 
       final expected = [
-        Empty(),
-        Loading(),
-        const Error(message: CACHE_FAILURE_MESSAGE)
+        EmptyState(),
+        LoadingState(),
+        const ErrorState(message: CACHE_FAILURE_MESSAGE)
       ];
       expectLater(bloc.stream.asBroadcastStream(), emitsInOrder(expected));
 
