@@ -54,7 +54,7 @@ void main() {
     test('should call InputConverter to convert input string to unsigned integer', () async {
       setUpMockInputConverterSuccess();
 
-      when(mockGetConcreteNumberTrivia.execute(any))
+      when(mockGetConcreteNumberTrivia.call(any))
           .thenAnswer((_) async => const Right(tNumberTrivia));
 
       bloc.add(const GetTriviaForConcreteNumber(tNumberString));
@@ -77,19 +77,19 @@ void main() {
 
     test('should get data from the concrete use case', () async {
       setUpMockInputConverterSuccess();
-      when(mockGetConcreteNumberTrivia.execute(any))
+      when(mockGetConcreteNumberTrivia.call(any))
           .thenAnswer((_) async => const Right(tNumberTrivia));
 
       bloc.add(const GetTriviaForConcreteNumber(tNumberString));
-      await untilCalled(mockGetConcreteNumberTrivia.execute(any));
+      await untilCalled(mockGetConcreteNumberTrivia.call(any));
 
-      verify(mockGetConcreteNumberTrivia.execute(const Params(number: tNumberParsed)));
+      verify(mockGetConcreteNumberTrivia.call(const Params(number: tNumberParsed)));
     });
 
     test('should emit [Loading, Success] when concrete number data is gotten successfully', () async {
       setUpMockInputConverterSuccess();
 
-      when(mockGetConcreteNumberTrivia.execute(any))
+      when(mockGetConcreteNumberTrivia.call(any))
           .thenAnswer((_) async => const Right(tNumberTrivia));
 
       final expected = [
@@ -104,7 +104,7 @@ void main() {
     test('should emit [Loading, Error] when getting concrete number data fails', () async {
       setUpMockInputConverterSuccess();
 
-      when(mockGetConcreteNumberTrivia.execute(any))
+      when(mockGetConcreteNumberTrivia.call(any))
           .thenAnswer((_) async => const Left(ServerFailure("")));
 
       final expected = [
@@ -119,7 +119,7 @@ void main() {
     test('should emit [Loading, Error] with proper error message when getting concrete number data fails', () async {
       setUpMockInputConverterSuccess();
 
-      when(mockGetConcreteNumberTrivia.execute(any))
+      when(mockGetConcreteNumberTrivia.call(any))
           .thenAnswer((_) async => const Left(CacheFailure("")));
 
       final expected = [
@@ -143,17 +143,17 @@ void main() {
     }
 
     test('should get data from the random use case', () async {
-      when(mockGetRandomNumberTrivia.execute(any))
+      when(mockGetRandomNumberTrivia.call(any))
           .thenAnswer((_) async => const Right(tNumberTrivia));
 
       bloc.add(GetTriviaForRandomNumber());
-      await untilCalled(mockGetRandomNumberTrivia.execute(any));
+      await untilCalled(mockGetRandomNumberTrivia.call(any));
 
-      verify(mockGetRandomNumberTrivia.execute(NoParams()));
+      verify(mockGetRandomNumberTrivia.call(NoParams()));
     });
 
     test('should emit [Loading, Success] when random number data is gotten successfully', () async {
-      when(mockGetRandomNumberTrivia.execute(any))
+      when(mockGetRandomNumberTrivia.call(any))
           .thenAnswer((_) async => const Right(tNumberTrivia));
 
       final expected = [
@@ -168,7 +168,7 @@ void main() {
     test('should emit [Loading, Error] when getting random number data fails', () async {
       setUpMockInputConverterSuccess();
 
-      when(mockGetConcreteNumberTrivia.execute(any))
+      when(mockGetConcreteNumberTrivia.call(any))
           .thenAnswer((_) async => const Left(ServerFailure("")));
 
       final expected = [
@@ -181,7 +181,7 @@ void main() {
     });
 
     test('should emit [Loading, Error] with proper error message when getting random number data fails', () async {
-      when(mockGetRandomNumberTrivia.execute(any))
+      when(mockGetRandomNumberTrivia.call(any))
           .thenAnswer((_) async => const Left(CacheFailure("")));
 
       final expected = [
