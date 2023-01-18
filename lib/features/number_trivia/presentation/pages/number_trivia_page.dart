@@ -14,7 +14,9 @@ class NumberTriviaPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Number Trivia"),
       ),
-      body: buildBody(context),
+      body: SingleChildScrollView(
+        child: buildBody(context)
+      ),
     );
   }
 
@@ -53,57 +55,5 @@ class NumberTriviaPage extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class TriviaControls extends StatefulWidget {
-  const TriviaControls({Key? key}) : super(key: key);
-
-  @override
-  State<TriviaControls> createState() => _TriviaControlsState();
-}
-
-class _TriviaControlsState extends State<TriviaControls> {
-  String inputString = "";
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      TextField(
-        keyboardType: TextInputType.number,
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: "Input a number"
-        ),
-        onChanged: (value) {
-          inputString = value;
-        } ,
-      ),
-      const SizedBox(height: 10),
-      Row(children: [
-        Expanded(
-          child: ElevatedButton(
-            onPressed: () {
-              dispatchConcrete();
-            },
-            child: Text("Search"),
-          ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: ElevatedButton(
-            onPressed: () {
-
-            },
-            child: Text("Get random trivia"),
-          ),
-        )
-      ])
-    ]);
-  }
-
-  void dispatchConcrete() {
-    BlocProvider.of<NumberTriviaBloc>(context)
-        .add(GetTriviaForConcreteNumber(inputString));
   }
 }
