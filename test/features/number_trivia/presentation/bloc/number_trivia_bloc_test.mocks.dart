@@ -69,11 +69,11 @@ class MockGetConcreteNumberTrivia extends _i1.Mock
         ),
       ) as _i2.NumberTriviaRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.NumberTrivia>> call(
+  _i5.Future<_i3.Either<_i6.Failure, _i7.NumberTrivia>> execute(
           _i4.Params? params) =>
       (super.noSuchMethod(
         Invocation.method(
-          #call,
+          #execute,
           [params],
         ),
         returnValue:
@@ -81,7 +81,7 @@ class MockGetConcreteNumberTrivia extends _i1.Mock
                 _FakeEither_1<_i6.Failure, _i7.NumberTrivia>(
           this,
           Invocation.method(
-            #call,
+            #execute,
             [params],
           ),
         )),
@@ -90,7 +90,7 @@ class MockGetConcreteNumberTrivia extends _i1.Mock
                 _FakeEither_1<_i6.Failure, _i7.NumberTrivia>(
           this,
           Invocation.method(
-            #call,
+            #execute,
             [params],
           ),
         )),
@@ -115,11 +115,11 @@ class MockGetRandomNumberTrivia extends _i1.Mock
         ),
       ) as _i2.NumberTriviaRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.NumberTrivia>> call(
+  _i5.Future<_i3.Either<_i6.Failure, _i7.NumberTrivia>> execute(
           _i9.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
-          #call,
+          #execute,
           [params],
         ),
         returnValue:
@@ -127,7 +127,7 @@ class MockGetRandomNumberTrivia extends _i1.Mock
                 _FakeEither_1<_i6.Failure, _i7.NumberTrivia>(
           this,
           Invocation.method(
-            #call,
+            #execute,
             [params],
           ),
         )),
@@ -136,7 +136,7 @@ class MockGetRandomNumberTrivia extends _i1.Mock
                 _FakeEither_1<_i6.Failure, _i7.NumberTrivia>(
           this,
           Invocation.method(
-            #call,
+            #execute,
             [params],
           ),
         )),

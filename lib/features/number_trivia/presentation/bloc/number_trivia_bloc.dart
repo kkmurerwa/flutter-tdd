@@ -40,7 +40,7 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
         (integer) async {
           emit(LoadingState());
 
-          final failureOrTrivia = await getConcreteNumberTrivia(Params(number: integer));
+          final failureOrTrivia = await getConcreteNumberTrivia.execute(Params(number: integer));
 
           _eitherSuccessorErrorState(emit, failureOrTrivia);
         }
@@ -48,13 +48,13 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
     } else if (event is GetTriviaForRandomNumber) {
       emit(LoadingState());
 
-      final failureOrTrivia = await getRandomNumberTrivia(NoParams());
+      final failureOrTrivia = await getRandomNumberTrivia.execute(NoParams());
 
       _eitherSuccessorErrorState(emit, failureOrTrivia);
     }
   }
 
-  void _eitherSuccessorErrorState(emit, Either<Failure, NumberTrivia> failureOrTrivia) {
+  Future<void> _eitherSuccessorErrorState(emit, Either<Failure, NumberTrivia> failureOrTrivia) async {
     emit(failureOrTrivia.fold(
       (failure) => ErrorState(message: mapFailureToMessage(failure)),
       (trivia) => SuccessState(trivia: trivia)
